@@ -1,0 +1,61 @@
+{
+    "properties": {
+        "name": "Count lines in a file"
+    },
+    "processes": {
+        "ReadFile": {
+            "component": "Flow\\Component\\ReadFile"
+        },
+        "SplitbyLines": {
+            "component": "Flow\\Component\\SplitStr"
+        },
+        "CountLines": {
+            "component": "Flow\\Component\\LineCount"
+        },
+        "Display": {
+            "component": "Flow\\Component\\Output"
+        }
+    },
+    "connections": [
+        {
+            "source": {
+                "process": "ReadFile",
+                "port": "out"
+            },
+            "target": {
+                "process": "SplitbyLines",
+                "port": "in"
+            }
+        },
+        {
+            "source": {
+                "process": "ReadFile",
+                "port": "error"
+            },
+            "target": {
+                "process": "Display",
+                "port": "in"
+            }
+        },
+        {
+            "source": {
+                "process": "SplitbyLines",
+                "port": "out"
+            },
+            "target": {
+                "process": "CountLines",
+                "port": "in"
+            }
+        },
+        {
+            "source": {
+                "process": "CountLines",
+                "port": "count"
+            },
+            "target": {
+                "process": "Display",
+                "port": "in"
+            }
+        }
+    ]
+}
